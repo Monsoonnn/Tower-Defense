@@ -175,7 +175,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 91a98ab163b461641aaa003ac30723bf, type: 3}
   m_Controller: {fileID: 9100000, guid: cbd1db45c75e5b948a5befe9ecb80421, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -288,7 +288,15 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 185226337405715613}
     m_Active: 1
-  m_Effectors: []
+  m_Effectors:
+  - m_Transform: {fileID: 6526647180214488154}
+    m_Style:
+      shape: {fileID: 4300000, guid: c6793350c150f456688e39a81f97364a, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
 --- !u!1 &454680968600458174
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 7565725815617764258}
+    m_ConstrainedObject: {fileID: 1148722862299646701}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -2236,8 +2244,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7249854962159291074}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43401805, y: 0.09269338, z: -0.59617233, w: 0.66904026}
-  m_LocalPosition: {x: 0.496, y: -0.159, z: 0.274}
+  m_LocalRotation: {x: 0.20440376, y: 0.06795117, z: -0.046091035, w: 0.97543705}
+  m_LocalPosition: {x: 0.5440502, y: 0.2240022, z: 0.1210037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2571,8 +2579,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7996092172020108955}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.555, y: -0.35, z: -0.251}
+  m_LocalRotation: {x: -0.008371287, y: -0.030188328, z: 0.0071761087, w: 0.9994834}
+  m_LocalPosition: {x: 0.512, y: 0.007, z: -0.188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
