@@ -15,5 +15,12 @@ public class ItemIventory
         this.itemID = UnityEngine.Random.Range(0, 999999);
     }*/
 
+    public virtual bool Deduct( int number ) { 
+        if(this.itemCount < number) return false;
+        this.itemCount -= number;
+        return true;
+    }
+
+
 
 }

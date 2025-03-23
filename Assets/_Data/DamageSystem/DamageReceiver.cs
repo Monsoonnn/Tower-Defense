@@ -4,9 +4,11 @@ using UnityEngine;
 public class DamageReceiver : NewMonobehavior {
 
 
-    protected int maxHP = 10;
-    protected int currentHP = 10;
+    public int maxHP = 10;
+    public int currentHP = 10;
     protected bool isDead = false;
+
+
     [SerializeField] public bool isImomortal = false;
 
     public virtual int Deduct( int hp ) {
@@ -25,7 +27,7 @@ public class DamageReceiver : NewMonobehavior {
         this.OnReborn();
     }
 
-
+    
     public virtual bool IsDead() { 
         return this.isDead = this.currentHP <= 0;
     } 

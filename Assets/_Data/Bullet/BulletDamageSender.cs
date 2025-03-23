@@ -25,7 +25,7 @@ public class BulletDamageSender : DamageSender {
 
     }
 
-    protected override void Send( DamageReceiver damageReceiver ) {
+    protected override void Send( DamageReceiver damageReceiver, Collider other) {
         damageReceiver.Deduct(this.damage);
         this.bulletCtrl.Bullet.Despawn.DoDespawn();
     }

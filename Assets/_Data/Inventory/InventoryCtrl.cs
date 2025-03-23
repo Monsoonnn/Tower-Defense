@@ -23,10 +23,30 @@ public abstract class InventoryCtrl : NewMonobehavior
         itemExist.itemCount += item.itemCount;
     }
 
+    public virtual bool RemoveItem ( ItemIventory item ) {
+        ItemIventory itemExist = this.FindItemNotEmpty(item.itemProfile.itemCodeName);
+
+        if(itemExist == null) return false;
+        if(itemExist.itemCount < item.itemCount ) return false;
+        
+        itemExist.itemCount -= item.itemCount;
+        if(itemExist.itemCount == 0) items.Remove(itemExist);
+        return true;
+    }
+
+
     public virtual ItemIventory FindItem(ItemCode itemCodeName) {
         foreach (ItemIventory item in items) {
             if(item.itemProfile.itemCodeName == itemCodeName) return item;
         }
+        return null;
+    }
+
+    public virtual ItemIventory FindItemNotEmpty( ItemCode itemCodeName ) {
+        foreach (ItemIventory item in items) {
+            if (item.itemProfile.itemCodeName != itemCodeName) continue;
+            if (item.itemCount > 0) return item;
+            }
         return null;
     }
 }

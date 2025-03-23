@@ -16,6 +16,14 @@ public class TowerCtrl : NewMonobehavior
 
     [SerializeField] protected BulletPrefabs bulletPrefabs;
 
+    [SerializeField] protected TowerShooting towerShooting;
+
+    [SerializeField] protected LevelAbstact level;
+
+    public LevelAbstact Level => level;
+
+    public TowerShooting TowerShooting => towerShooting;    
+
     public BulletPrefabs BulletPrefabs => bulletPrefabs;
 
     public TowerTargeting TowerTargeting => towerTargeting;
@@ -43,6 +51,22 @@ public class TowerCtrl : NewMonobehavior
         this.LoadBulletSpawner();
         this.LoadBulletPrefabs();
         this.LoadFirePoints();
+        this.LoadTowerShoting();
+        this.LoadLevel();
+    }
+
+    protected virtual void LoadLevel() {    
+        if (this.level != null) return;
+        this.level = GetComponentInChildren<LevelAbstact>();
+        Debug.Log(transform.name + ": LoadLevel ", gameObject);
+    }
+
+
+
+    protected virtual void LoadTowerShoting() { 
+        if (this.towerShooting != null) return;
+        this.towerShooting = transform.GetComponentInChildren<TowerShooting>();
+        Debug.Log(transform.name + ": LoadTowerShoting ", gameObject);
     }
 
     private void LoadBullet() {

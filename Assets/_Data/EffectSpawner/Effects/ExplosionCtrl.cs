@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ExplosionCtrl : EffectFlyAbstract
 {
-    
+
     public override string GetName() {
         return "Explosion";
     }
+
 }

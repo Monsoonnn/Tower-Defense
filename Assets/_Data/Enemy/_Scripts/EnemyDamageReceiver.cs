@@ -55,12 +55,8 @@ public class EnemyDamageReceivier : DamageReceiver
 
     protected virtual void RewarOnDead() {
 
-        ItemIventory item = new ItemIventory();
-       
-        item.itemProfile = InventoryManager.Instance.GetProfileByName(ItemCode.Gold);
-       
-        item.itemCount = 1;
-
-        InventoryManager.Instance.Monies().AddItem(item);
+        ItemDropManager.Instance.Drop(ItemCode.Monies, 1, InvCodeName.Currency,transform.position);
+        
+        ItemDropManager.Instance.Drop(ItemCode.Exp, 1, InvCodeName.Currency,transform.position);
     }
 }

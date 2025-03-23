@@ -15,7 +15,7 @@ public abstract class DamageSender : NewMonobehavior
 
 
         if (damageReceiver == null) return;
-        this.Send(damageReceiver);
+        this.Send(damageReceiver, other);
 
 
     }
@@ -25,8 +25,9 @@ public abstract class DamageSender : NewMonobehavior
         this.LoadRigidbody();
     }
 
-    protected virtual void Send(DamageReceiver damageReceiver) {
+    protected virtual void Send(DamageReceiver damageReceiver, Collider collider) {
         damageReceiver.Deduct(this.damage);
+        
     }
 
     protected virtual void LoadRigidbody() {

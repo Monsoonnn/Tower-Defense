@@ -5,6 +5,9 @@ using UnityEngine;
 
 public enum ItemCode {
     NoName = 0,
-    Gold = 1,
+    Monies = 1,
     Grenades = 2,
+    bandage = 3,
+    painkiller = 4,
+    Exp = 5
 }

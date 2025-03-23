@@ -17,6 +17,7 @@ public class CrosshairPointer : NewMonobehavior
         if (Physics.Raycast(ray, out RaycastHit hit, this.maxDistance, this.layerMask)) {
             this.transform.position = hit.point;
             this.hitObj = hit.collider;
+           /* Debug.Log(hit.collider.name);*/
         }
     }
 

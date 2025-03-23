@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Throw : AttackAbstract
 {
-    protected string effectName = "Grenades";
+    protected string effectName = "ProjectTile2";
     protected bool isAvailable = true;
     protected float cooldownTime = 3f;
     protected float cooldownTimer = 0f;

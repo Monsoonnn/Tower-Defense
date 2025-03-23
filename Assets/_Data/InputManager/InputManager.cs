@@ -11,8 +11,6 @@ public class InputManager : SingletonCtrl<InputManager>
     protected float attackHoldLimit = 3f;
     protected bool isRollingGrenade = false;
     protected bool isThrowGrenade = false;
-  
-
 
     private void Update() {
         this.CheckLookClose();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PathsManager : SingletonCtrl<PathsManager> {
-    [SerializeField] protected List<Path> paths = new();
+    [SerializeField] protected List<PathMoving> paths = new();
 
     protected override void Awake() {
         base.Awake();
@@ -20,7 +20,7 @@ public class PathsManager : SingletonCtrl<PathsManager> {
 
         foreach (Transform child in transform) {
 
-            Path path = child.GetComponent<Path>();
+            PathMoving path = child.GetComponent<PathMoving>();
             path.LoadPoints();
             paths.Add(path);
 
@@ -29,7 +29,7 @@ public class PathsManager : SingletonCtrl<PathsManager> {
         Debug.Log(transform.name + ": LoadPaths ", gameObject);
     }
 
-    public virtual Path GetPath(int index) {         
+    public virtual PathMoving GetPath(int index) {         
         return paths[index];
     }
 }

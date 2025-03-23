@@ -5,13 +5,17 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 
-public class PlayerCtrl : NewMonobehavior
+public class PlayerCtrl : SingletonCtrl<PlayerCtrl>
 {
     [SerializeField] protected vThirdPersonController vThirdPersonController;
     [SerializeField] protected vThirdPersonCamera vThirdPersonCamera;
     [SerializeField] protected CrosshairPointer crosshairPointer;
     [SerializeField] protected Rig aimingRing;
     [SerializeField] protected WeaponsCtrl weaponsCtrl;
+    [SerializeField] protected LevelAbstact level;
+
+    public LevelAbstact Level => level;
+
     public vThirdPersonController ThirdPersonController => vThirdPersonController;
     public vThirdPersonCamera ThirdPersonCamera => vThirdPersonCamera;
     public CrosshairPointer CrosshairPointer => crosshairPointer;
@@ -27,6 +31,13 @@ public class PlayerCtrl : NewMonobehavior
         this.LoadCrosshairPointer();
         this.LoadRigging();
         this.LoadWeaponsCtrl();
+        this.LoadLevelAbstact();
+    }
+
+    protected virtual void  LoadLevelAbstact() {
+        if(this.level != null) return;
+        this.level = GetComponentInChildren<LevelAbstact>();
+        Debug.Log(transform.name + ": Load LevelAbstact", gameObject);
     }
 
     void LoadThirdPersonCtrl() {

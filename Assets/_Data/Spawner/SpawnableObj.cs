@@ -15,8 +15,6 @@ public abstract class SpawnableObj : NewMonobehavior
    protected override void LoadComponents() {
         base.LoadComponents();
         this.LoadDespawn();
-       
-
     }
 
     protected virtual void LoadDespawn() {

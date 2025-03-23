@@ -41,9 +41,15 @@ public class BtnInvUI : ButtonAbstact
         Debug.Log(transform.name + ": Load txtItemCount", gameObject);
     }
 
-    protected virtual void ItemUpdating() { 
+    protected virtual void ItemUpdating() {
+        
         this.txtItemName.text = this.itemIventory.itemName;
         this.txtItemCount.text = this.itemIventory.itemCount.ToString();
+
+        if (itemIventory.itemCount == 0) {
+            Destroy(this.gameObject);
+            return;
+        }
     }
 
     public virtual void SetItem(ItemIventory itemIventory) {

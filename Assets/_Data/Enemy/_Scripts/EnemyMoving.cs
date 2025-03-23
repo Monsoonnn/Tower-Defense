@@ -9,7 +9,7 @@ public class EnemyMoving : NewMonobehavior
     public GameObject target;
     [SerializeField] public EnemyCtrl enemyCtrl;
     [SerializeField] protected int pathIndex;   
-    [SerializeField] protected Path enemyPath;
+    [SerializeField] protected PathMoving enemyPath;
     [SerializeField] protected Point currentPoint;
     [SerializeField] protected float pointDistance = Mathf.Infinity;
     [SerializeField] protected float stopDistance = 2f;
@@ -105,10 +105,8 @@ public class EnemyMoving : NewMonobehavior
 
 
     protected virtual void OnReborn() {
-        this.canMove = true;
         this.isFinish = false;
         this.currentPoint = null;
-        this.enemyCtrl.Agent.isStopped = false;
 
     }
 }

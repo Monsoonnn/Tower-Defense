@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class TowerTargeting : NewMonobehavior {
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected SphereCollider sphereCollider;
     [SerializeField] protected EnemyCtrl nearestEnemy;
-    [SerializeField] protected LayerMask obstacleLayerMask;
+    [SerializeField] protected LayerMask obstacleLayerMask = -1;
     [SerializeField] protected List<EnemyCtrl> enemies = new();
 
     
@@ -68,8 +68,10 @@ public class TowerTargeting : NewMonobehavior {
 
     protected void RemoveEnemy( Collider collider ) {
 
+        if (collider.name != Const.TOWER_TARGETABLE) return;
+
         foreach (EnemyCtrl enemyCtrl in this.enemies) {
-            if (collider.transform.parent == enemyCtrl.transform) {
+            if (collider.transform.parent.name == enemyCtrl.transform.name) {
                 if (enemyCtrl == this.nearestEnemy) this.nearestEnemy = null;
 
                 this.enemies.Remove(enemyCtrl);
@@ -80,14 +82,15 @@ public class TowerTargeting : NewMonobehavior {
     }
 
     protected virtual void FindNearest() {
+        if (this.enemies.Count <= 0) {
+            this.nearestEnemy = null;
+            return;
+        }
         float nearestDistance = Mathf.Infinity;
         float enemyDistance;
-
         foreach (EnemyCtrl enemyCtrl in this.enemies) {
-
             if (!this.CanSeeTarget(enemyCtrl)) continue;
-
-            enemyDistance = Vector3.Distance(transform.position, enemyCtrl.transform.position);
+            enemyDistance = Vector3.SqrMagnitude(transform.position - enemyCtrl.transform.position);
             if (enemyDistance < nearestDistance) {
                 nearestDistance = enemyDistance;
                 this.nearestEnemy = enemyCtrl;
@@ -96,25 +99,22 @@ public class TowerTargeting : NewMonobehavior {
 
     }
 
-    protected virtual bool CanSeeTarget(EnemyCtrl target) {
+    protected virtual bool CanSeeTarget( EnemyCtrl target ) {
         //Raycast to target
 
         Vector3 directionToTarget = target.transform.position - transform.position;
-
         float distanceToTarget = directionToTarget.magnitude;
 
-        if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitInfo, distanceToTarget, obstacleLayerMask)) {
+        if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hitInfo, distanceToTarget, this.obstacleLayerMask)) {
 
-            Vector3 directionToCollider= hitInfo.point - transform.position;
+            Vector3 directionToCollider = hitInfo.point - transform.position;
             float distanceToCollider = directionToCollider.magnitude;
 
             Debug.DrawRay(transform.position, directionToCollider.normalized * distanceToCollider, Color.red);
-
             return false;
         }
 
         Debug.DrawRay(transform.position, directionToTarget.normalized * distanceToTarget, Color.green);
-
         return true;
     }
 

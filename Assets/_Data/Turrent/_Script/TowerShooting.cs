@@ -10,12 +10,17 @@ public class TowerShooting : TowerAbstract
 
     [SerializeField] float rotationSpeed = 2.0f;
 
-    [SerializeField] protected Bullet bullet;
-
     [SerializeField] protected float shootSpeed = 1f;
-    [SerializeField] protected float targetLoadSpeed = 1f;
+    [SerializeField] protected float targetLoadSpeed = 0.5f;
 
     [SerializeField] protected int currentFirePoint = 0;
+
+    [SerializeField] protected int killCount = 0;
+
+    [SerializeField] protected EffectSpawner effectSpawner;
+
+    public int killTotal = 0;
+    public int KillCount => this.killCount;
 
     protected override void Start() {
         base.Start();
@@ -25,8 +30,19 @@ public class TowerShooting : TowerAbstract
 
     protected void FixedUpdate() {
         this.LookAtTarget();
+        this.IsTargetDead();
         /*this.ShootAtTarget()*/
         /*this.TargetLoading();*/
+    }
+    protected override void LoadComponents() {
+        base.LoadComponents();
+        this.LoadEffectSpawnerCtrl();
+    }
+
+    protected virtual void LoadEffectSpawnerCtrl() { 
+        if (this.effectSpawner != null) return;
+        this.effectSpawner = GameObject.FindAnyObjectByType<EffectSpawner>();
+        Debug.Log(transform.name + ": LoadEffectSpawnerCtrl ", gameObject);
     }
 
     protected virtual void LookAtTarget() {
@@ -59,12 +75,48 @@ public class TowerShooting : TowerAbstract
         if (target == null) return;
 
         FirePoint firePoint = this.GetFirePoint();
-        Bullet newBullet = this.towerCtrl.BulletSpawner.Spawn(this.towerCtrl.Bullet, firePoint.transform.position);
+ 
+        Vector3 rotation = this.towerCtrl.Rotator.transform.right;
 
-        newBullet.transform.forward = this.towerCtrl.Rotator.transform.right;
+        this.SpawnBullet(firePoint.transform.position, rotation);
+        this.SpawnMuzzle(firePoint.transform.position, rotation);
+
+    }
+
+    protected virtual void SpawnBullet( Vector3 spawnPoint, Vector3 rotation ) {
+
+        EffectCtrl effect = this.effectSpawner.PoolPrefabs.GetByName("ProjectTile1");
+        EffectCtrl newEffect = this.effectSpawner.Spawn(effect, spawnPoint);
+        newEffect.transform.forward = rotation;
+
+        EffectFlyAbstract effectFly = (EffectFlyAbstract)newEffect;
+        effectFly.FlyToTarget.SetTarget(this.target.TowerTargetable.transform);
+            
+        newEffect.gameObject.SetActive(true);
+    }
+
+    /*protected virtual void SpawnBullet(Vector3 spawnPoint, Vector3 rotation) {
+
+        Bullet newBullet = this.towerCtrl.BulletSpawner.Spawn(this.towerCtrl.Bullet, spawnPoint);
+
+        newBullet.transform.forward = rotation;
 
         newBullet.gameObject.SetActive(true);
+    }*/
+
+    protected virtual void SpawnMuzzle( Vector3 spawnPoint, Vector3 rotation ) {
+
+        EffectCtrl effect = this.effectSpawner.PoolPrefabs.GetByName("TurretShot1");
+        EffectCtrl newEffect = this.effectSpawner.Spawn(effect, spawnPoint);
+
+        newEffect.transform.forward = rotation;
+
+        newEffect.gameObject.SetActive(true);
+
+
+
     }
+
 
     protected virtual FirePoint GetFirePoint() {
 
@@ -77,6 +129,21 @@ public class TowerShooting : TowerAbstract
         }
 
         return firePoint;
+    }
+
+    protected virtual bool IsTargetDead() { 
+       if(this.target == null) return true;
+       if(!this.target.DamageReceiver.IsDead()) return false;
+       this.killCount++;
+       this.killTotal++;
+       this.target = null;
+       return true;
+    }
+
+    public virtual bool DeductKillCount(int count) { 
+        if(this.killCount < count) return false;
+        this.killCount -= count;
+        return true;
     }
 
 }

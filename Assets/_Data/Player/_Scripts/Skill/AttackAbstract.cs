@@ -7,7 +7,6 @@ public abstract class AttackAbstract : NewMonobehavior
     [SerializeField] protected PlayerCtrl playerCtrl;
     [SerializeField] protected EffectSpawner effectSpawner;
     [SerializeField] protected EffectPrefabs effectPrefabs;
-    
 
     protected virtual void Update() {
         this.Cooldown();

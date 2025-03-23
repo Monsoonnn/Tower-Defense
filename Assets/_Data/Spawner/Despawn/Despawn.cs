@@ -42,7 +42,7 @@ public abstract class Despawn<T> : DespawnBase where T : SpawnableObj
         if (this.parent != null) return;
         this.parent = transform.parent.GetComponent<T>();
        
-        Debug.Log(transform.name + ": LoadParent ", gameObject);
+        /*Debug.Log(transform.name + ": LoadParent ", gameObject);*/
 
     }
 

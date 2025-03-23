@@ -8,10 +8,10 @@ public class MoveToTarget : NewMonobehavior {
         this.IsFlying();
     }
 
-    void IsFlying() {
+    protected virtual void IsFlying() {
         if(target == null) return;
-        transform.parent.Translate(Vector3.forward * speed * Time.deltaTime);
-    }
+        transform.parent.Translate(speed * Time.deltaTime * Vector3.forward);
+    }   
 
     public virtual void SetTarget(Transform target) {
         this.target = target;

@@ -8,6 +8,9 @@ public class InventoryUI : SingletonCtrl<InventoryUI>
 
     bool IsShow => isShow;
 
+    [SerializeField] protected Transform showHide;
+
+
     [SerializeField] protected BtnInvUI defaultItemInventoryUI;
 
     protected List<BtnInvUI> btnItems = new List<BtnInvUI>();
@@ -15,6 +18,10 @@ public class InventoryUI : SingletonCtrl<InventoryUI>
 
     protected virtual void FixedUpdate() { 
         this.ItemUpdating();
+    }
+
+    protected virtual void LateUpdate() { 
+        this.ToggleInventory();
     }
 
 
@@ -28,8 +35,14 @@ public class InventoryUI : SingletonCtrl<InventoryUI>
     protected override void LoadComponents() {
         base.LoadComponents();
         this.LoadBtnInventory();
+        this.LoadShowHide();
     }
 
+    protected virtual void LoadShowHide() { 
+        if (this.showHide != null) return;  
+        this.showHide = transform.Find("ShowHide");
+        Debug.Log(transform.name + ": LoadShowHide", gameObject);
+    }
 
     protected virtual void LoadBtnInventory() { 
         if(this.defaultItemInventoryUI != null) return;
@@ -45,6 +58,10 @@ public class InventoryUI : SingletonCtrl<InventoryUI>
 
 
     protected virtual void ItemUpdating() {
+
+        if(!this.isShow) return;
+
+
         InventoryCtrl itemInvCtrl = InventoryManager.Instance.Items();
         foreach (ItemIventory item in itemInvCtrl.Items) {
 
@@ -75,15 +92,19 @@ public class InventoryUI : SingletonCtrl<InventoryUI>
         return null;
     }
 
+    protected virtual void ToggleInventory() { 
+        if(InputHotKeys.Instance.IsToogleInventoryUI) this.ToggleUI();
+    }
+
     public virtual void HideUI()
     {
-        this.gameObject.SetActive(false);
+        this.showHide.gameObject.SetActive(false);
         this.isShow = false;
     }
 
     public virtual void ShowUI()
     {
-        this.gameObject.SetActive(true);
+        this.showHide.gameObject.SetActive(true);
         this.isShow = true; 
     }
 

@@ -193,7 +193,7 @@ MonoBehaviour:
   spawner: {fileID: 0}
   parent: {fileID: 9106953543598879673}
   isDespawnByTime: 1
-  timeLife: 7
+  timeLife: 100
   currentTime: 7
 --- !u!1 &8764908379473074346
 GameObject:
@@ -290,6 +290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1231186226933433561}
-  damage: 20
+  damage: 5
   bulletCtrl: {fileID: 5280956175999691759}
   sphereCollider: {fileID: 1387821220934550452}
